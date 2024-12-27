@@ -1,108 +1,72 @@
+<img src="https://github.com/user-attachments/assets/3957f576-e21e-40f8-b61a-5d0aa803f1bf" alt="" style="float: left; margin-right: 10px;">
+<img src="https://github.com/user-attachments/assets/6021e4fb-a055-4269-9d3d-9e595c08cb54" alt="" style="float: right; margin-right: 10px">
+<img src="https://github.com/user-attachments/assets/60bba9ee-6787-4ec8-a01a-c11441dcfaeb" alt="" style="float: right; margin-right: 10px">
+
+<div align="left">
+  <a href="">
+    <img width="200" height="200" src="https://github.com/user-attachments/assets/5385e4c2-d0ae-4cea-8c4f-a756116e0522">
+  </a>
+</div>
 <div align="center">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
 </div>
 
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![tests][tests]][tests-url]
-[![coverage][cover]][cover-url]
-[![discussion][discussion]][discussion-url]
-[![size][size]][size-url]
+# 价值负载。🖱️
 
-# val-loader
+`WEBPACK_LOADER_EXE`
 
-A webpack loader which executes a given module, and returns the result of the
-execution at build-time, when the module is required in the bundle. In this way,
-the loader changes a module from code to a result.
+🅼🅾🅳 `return result execution @runtime`:
 
-Another way to view `val-loader`, is that it allows a user a way to make their
-own custom loader logic, without having to write a custom loader.
+`MOD_BUNDLE=RESULT`
 
-The target module is called with two arguments: `(options, loaderContext)`
+View Custom Loader:
 
-- `options`: The loader options (for instance provided in the webpack config. See the [example](#examples) below).
-- `loaderContext`: [The loader context](https://webpack.js.org/api/loaders/#the-loader-context).
+`val-loader`
 
-## Getting Started
+Target Arguments:
 
-To begin, you'll need to install `val-loader`:
+- `options`: लोडर विकल्प इंस्टेंस वेबपैक कॉन्फ़िगरेशन प्रदान करता है।.
+
+## 附加文件扩展名。💻
+
+`val-loader`:
 
 ```console
 npm install val-loader --save-dev
 ```
 
-```console
-yarn add -D val-loader
+![val-loader](https://github.com/user-attachments/assets/ae199e78-fd49-479b-9a31-44f38ce2447d)
+
+
++ Loader -> `webpack` + config.
+
+```bash
+$ touch @devtools.console.log.js
+$ echo "module.exports = (options, loaderContext) => {return { code: module.exports = 42; };};" >> @devtools.console.log.js
+$ touch @webpack.conf.js
+$ echo "module.exports = {module: {rules: [{test: /target-file.js$/,use: [{loader: val-loader,},],},],},};" >> @webpack.conf.js
 ```
 
-```console
-pnpm add -D val-loader
+![entry js](https://github.com/user-attachments/assets/0b3faf08-3c49-4f83-81c6-6928b488529b)
+
+* रन पर क्लिक करें. `webpack`
+
+![runWebpack](https://github.com/user-attachments/assets/602e4701-e92d-4f5b-a867-8b2554a08418)
+
+## 返回对象属性 ⚙️
+
+```bash
+$ touch modconf.d.ts
+$ echo "type module.exports = { resolve: { modules: [path.resolve(__/home/qenmity/node_modules/debug/src/webpack/src, 'src'), 'node_modules'], alias: {'@src': path.resolve(__/home/qenmity/node_modules/debug/src/webpack/src, 'src')}}};" >> modconf.d.ts
 ```
 
-Then add the loader to your `webpack` config. For example:
+~~###`executableFile`~~
 
-**target-file.js**
+अपरिभाषित मापांक प्रणालियाँ डिफ़ॉल्ट हैं। डेवलपर्स निष्पादन योग्य फ़ाइल का पथ निर्दिष्ट करते हैं। ....
 
-```js
-module.exports = (options, loaderContext) => {
-  return { code: "module.exports = 42;" };
-};
-```
-
-**webpack.config.js**
-
-```js
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /target-file.js$/,
-        use: [
-          {
-            loader: `val-loader`,
-          },
-        ],
-      },
-    ],
-  },
-};
-```
-
-**src/entry.js**
-
-```js
-const answer = require("target-file");
-```
-
-And run `webpack` via your preferred method.
-
-## Options
-
-- **[`executableFile`](#executableFile)**
-
-### `executableFile`
-
-Type:
-
-```ts
-type executableFile = string;
-```
-
-Default: `undefined`
-
-Allows to specify path to the executable file
-
-**data.json**
-
-```json
-{
-  "years": "10"
-}
-```
-
-**executable-file.js**
+> **executable-file.js**, **webpack.config.js**
 
 ```js
 module.exports = function yearsInMs(options, loaderContext, content) {
@@ -114,11 +78,6 @@ module.exports = function yearsInMs(options, loaderContext, content) {
     code: "module.exports = " + value,
   };
 };
-```
-
-**webpack.config.js**
-
-```js
 module.exports = {
   module: {
     rules: [
@@ -146,7 +105,15 @@ module.exports = {
 };
 ```
 
-## Return Object Properties
+**data.json**
+
+```json
+{
+  "years": "10"
+}
+```
+
+## 运行选项。 🗃️
 
 Targeted modules of this loader must export a `Function` that returns an object,
 or a `Promise` resolving an object (e.g. async function), containing a `code` property at a minimum, but can
@@ -185,10 +152,7 @@ Type:
 type ast = Array<object>;
 ```
 
-Default: `undefined`
-
-An [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
-that will be passed to the next loader. Useful to speed up the build time if the
+Default: `undefined` that will be passed to the next loader. Useful to speed up the build time if the
 next loader uses the same AST.
 
 ### `dependencies`
@@ -203,8 +167,6 @@ Default: `[]`
 
 An array of absolute, native paths to file dependencies that should be watched by webpack for changes.
 
-Dependencies can also be added using [`loaderContext.addDependency(file: string)`](https://webpack.js.org/api/loaders/#thisadddependency).
-
 ### `contextDependencies`
 
 Type:
@@ -216,8 +178,6 @@ type contextDependencies = Array<string>;
 Default: `[]`
 
 An array of absolute, native paths to directory dependencies that should be watched by webpack for changes.
-
-Context dependencies can also be added using [`loaderContext.addContextDependency(directory: string)`](https://webpack.js.org/api/loaders/#thisaddcontextdependency).
 
 ### `buildDependencies`
 
@@ -246,9 +206,7 @@ Default: `false`
 If `true`, specifies that the code can be re-used in watch mode if none of the
 `dependencies` have changed.
 
-## Examples
-
-### Simple
+<hr>
 
 In this example the loader is configured to operator on a file name of
 `years-in-ms.js`, execute the code, and store the result in the bundle as the
@@ -299,9 +257,7 @@ import tenYearsMs from "years-in-ms";
 console.log(tenYearsMs); // 315360000000
 ```
 
-### Modernizr
-
-Example shows how to build [`modernizr`](https://www.npmjs.com/package/modernizr).
+#### Modernizr
 
 **entry.js**
 
@@ -356,9 +312,7 @@ module.exports = {
 };
 ```
 
-### Figlet
-
-Example shows how to build [`figlet`](https://www.npmjs.com/package/figlet).
+##### Figlet
 
 **entry.js**
 
@@ -443,26 +397,3 @@ module.exports = {
   },
 };
 ```
-
-## Contributing
-
-Please take a moment to read our contributing guidelines if you haven't yet done so.
-
-[CONTRIBUTING](./.github/CONTRIBUTING.md)
-
-## License
-
-[MIT](./LICENSE)
-
-[npm]: https://img.shields.io/npm/v/val-loader.svg
-[npm-url]: https://npmjs.com/package/val-loader
-[node]: https://img.shields.io/node/v/val-loader.svg
-[node-url]: https://nodejs.org
-[tests]: https://github.com/webpack-contrib/val-loader/workflows/val-loader/badge.svg
-[tests-url]: https://github.com/webpack-contrib/val-loader/actions
-[cover]: https://codecov.io/gh/webpack-contrib/val-loader/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/webpack-contrib/val-loader
-[discussion]: https://img.shields.io/github/discussions/webpack/webpack
-[discussion-url]: https://github.com/webpack/webpack/discussions
-[size]: https://packagephobia.now.sh/badge?p=val-loader
-[size-url]: https://packagephobia.now.sh/result?p=val-loader
